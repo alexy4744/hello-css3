@@ -1,0 +1,210 @@
+:root {
+  --terminal-width: 40vw;
+  --terminal-min-width: 300px;
+  --terminal-height: 40vh;
+  --terminal-actions-height: 50px;
+  --terminal-selection-color: #76B354;
+  --terminal-font-size: 16px;
+  --terminal-cursor-width: 8px;
+  --terminal-body-margin: 15px;
+}
+
+body {
+  width: 100vw;
+  height: 100vh;
+  background: linear-gradient(45deg, #76B354, #5089DB);
+  background-size: 200%;
+  animation: scroll-background 4s ease-in-out infinite;
+}
+
+.terminal {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: var(--terminal-width);
+  min-width: var(--terminal-min-width);
+  height: var(--terminal-height);
+  min-height: var(--terminal-min-width);
+  background-color: #0a0e14;
+  border-radius: 5px;
+  box-shadow: 5px 7px 10px;
+}
+
+.terminal-header-title-initial,
+.terminal-header-title-final {
+  position: absolute;
+  margin-top: 15px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.terminal-header-title-initial {
+  animation: hide 0s linear 2.25s forwards;
+}
+
+.terminal-header-title-final {
+  visibility: hidden;
+  animation: show 0s linear 2.25s forwards;
+}
+
+.terminal-header-actions {
+  display: flex;
+  flex-direction: row;
+  position: absolute;
+  width: calc(100% - 10px);
+  height: var(--terminal-actions-height);
+  padding-top: 5px;
+  padding-left: 10px;
+}
+
+.terminal-header-actions>div {
+  width: 16px;
+  height: 16px;
+  margin: 10px 5px;
+  border-radius: 50%;
+  text-align: center;
+  color: transparent;
+  font-family: Arial;
+  user-select: none;
+  font-size: var(--terminal-font-size);
+  transition: color 0.2s ease-in-out;
+}
+
+.terminal-header-actions>div:hover {
+  color: black;
+}
+
+.terminal-header-actions-close {
+  background-color: #ff525c;
+}
+
+.terminal-header-actions-minimize {
+  background-color: #ffb852;
+}
+
+.terminal-header-actions-maximize {
+  background-color: #00ca61;
+}
+
+.terminal-body {
+  height: calc(100% - var(--terminal-actions-height) - var(--terminal-body-margin));
+  margin-top: var(--terminal-actions-height);
+  margin-bottom: var(--terminal-body-margin);
+  margin-left: var(--terminal-body-margin);
+  margin-right: var(--terminal-body-margin);
+}
+
+.terminal-body-commands,
+.terminal-body-cursor {
+  animation: hide 0s linear 2s forwards;
+}
+
+span {
+  display: inline-block;
+  color: white;
+  font-family: monospace;
+  font-size: var(--terminal-font-size);
+}
+
+.terminal-body-commands::selection,
+.terminal-body-commands>span::selection,
+.terminal-body-script::selection {
+  background-color: var(--terminal-selection-color);
+}
+
+.terminal-body-cursor {
+  position: absolute;
+  display: inline-block;
+  width: var(--terminal-cursor-width);
+  height: 20px;
+  background-color: white;
+  animation: blink 1s step-end infinite;
+}
+
+.terminal-command {
+  display: inline-block;
+  vertical-align: top;
+  margin-left: var(--terminal-cursor-width);
+  overflow: hidden;
+  white-space: nowrap; /* prevent text from kicking to next line when width is too small*/
+  width: 0px;
+  animation: type 1.5s steps(13) 0s normal both; /* # of steps === # of total letters */
+}
+
+.terminal-body-script {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  visibility: hidden;
+  animation: show 0s linear 2.25s forwards;
+}
+
+h1 {
+  font-family: Helvetica;
+  color: #DE2E43;
+  text-align: center;
+  font-size: calc(24px + 5vw);
+  animation: fade-rgb 4s step-end infinite;
+  transition: transform 0.15s ease-in-out;
+}
+
+h1:hover {
+  transform: scale(1.1);
+}
+
+@keyframes type {
+  to {
+    width: 115px;
+  }
+}
+
+@keyframes show {
+  to {
+    visibility: visible;
+  }
+}
+
+@keyframes hide {
+  to {
+    position: absolute;
+    visibility: hidden;
+  }
+}
+
+@keyframes blink {
+  50% {
+    background-color: black;
+  }
+}
+
+@keyframes fade-rgb {
+  25% {
+    color: #76B354;
+  }
+  
+  50% {
+    color: #FFAC32; 
+  }
+  
+  75% {
+    color: #5089DB;
+  }
+}
+
+@keyframes scroll-background {
+  0% {
+    background-position: 0%;
+  }
+
+  50% {
+    background-position: 100%;
+  }
+  
+  100% {
+    background-position: 0%;
+  }
+}
