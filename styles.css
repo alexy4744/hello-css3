@@ -1,4 +1,5 @@
 :root {
+  /* global variables to keep everything defined in one place */
   --terminal-width: 40vw;
   --terminal-min-width: 300px;
   --terminal-height: 40vh;
@@ -7,13 +8,16 @@
   --terminal-font-size: 16px;
   --terminal-cursor-width: 8px;
   --terminal-body-margin: 15px;
+  --terminal-type-delay: 0.5s;
+  --terminal-type-speed: 1.5s;
+  --terminal-execute-script: calc(var(--terminal-type-delay) + var(--terminal-type-speed) + 0.65s); /* start the script after it finishes typing */
 }
 
 body {
   width: 100vw;
   height: 100vh;
   background: linear-gradient(45deg, #76B354, #5089DB);
-  background-size: 200%;
+  background-size: 200%; /* zoom in the background so that it allows space for it to be scrolled */
   animation: scroll-background 4s ease-in-out infinite;
 }
 
@@ -34,34 +38,32 @@ body {
 .terminal-header-title-initial,
 .terminal-header-title-final {
   position: absolute;
-  margin-top: 15px;
+  top: 15px;
   left: 50%;
   transform: translateX(-50%);
 }
 
 .terminal-header-title-initial {
-  animation: hide 0s linear 2.25s forwards;
+  animation: hide 0s linear var(--terminal-execute-script) forwards;
 }
 
 .terminal-header-title-final {
   visibility: hidden;
-  animation: show 0s linear 2.25s forwards;
+  animation: show 0s linear var(--terminal-execute-script) forwards;
 }
 
 .terminal-header-actions {
-  display: flex;
-  flex-direction: row;
   position: absolute;
-  width: calc(100% - 10px);
   height: var(--terminal-actions-height);
   padding-top: 5px;
   padding-left: 10px;
 }
 
 .terminal-header-actions>div {
+  display: inline-block;
   width: 16px;
   height: 16px;
-  margin: 10px 5px;
+  margin: 10px 3px;
   border-radius: 50%;
   text-align: center;
   color: transparent;
@@ -97,7 +99,7 @@ body {
 
 .terminal-body-commands,
 .terminal-body-cursor {
-  animation: hide 0s linear 2s forwards;
+  animation: hide 0s linear var(--terminal-execute-script) forwards;
 }
 
 span {
@@ -129,25 +131,25 @@ span {
   overflow: hidden;
   white-space: nowrap; /* prevent text from kicking to next line when width is too small*/
   width: 0px;
-  animation: type 1.5s steps(13) 0s normal both; /* # of steps === # of total letters */
+  animation: type var(--terminal-type-speed) steps(13) var(--terminal-type-delay) normal both; /* # of steps === # of total letters */
 }
 
 .terminal-body-script {
   width: 100%;
   height: 100%;
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
+  flex-direction: column; /* stack the items */
+  justify-content: center; /* center it along the flex direction */
   visibility: hidden;
-  animation: show 0s linear 2.25s forwards;
+  animation: show 0s linear var(--terminal-execute-script) forwards; /* delay the animation until finish typing */
 }
 
 h1 {
   font-family: Helvetica;
+  font-size: calc(64px + 1vw);
+  margin: 10px 0;
   color: #DE2E43;
   text-align: center;
-  font-size: calc(24px + 5vw);
   animation: fade-rgb 4s step-end infinite;
   transition: transform 0.15s ease-in-out;
 }
@@ -158,7 +160,7 @@ h1:hover {
 
 @keyframes type {
   to {
-    width: 115px;
+    width: 115px; /* final width of the span after all letters are typed out */
   }
 }
 
@@ -170,7 +172,7 @@ h1:hover {
 
 @keyframes hide {
   to {
-    position: absolute;
+    position: absolute; /* absolute positioning so that element doesnt take space anymore */
     visibility: hidden;
   }
 }
@@ -201,10 +203,10 @@ h1:hover {
   }
 
   50% {
-    background-position: 100%;
+    background-position: 100%; /* move it all the way over */
   }
   
   100% {
-    background-position: 0%;
+    background-position: 0%; /* then go backward */
   }
 }
