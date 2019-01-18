@@ -16,23 +16,29 @@
 body {
   width: 100vw;
   height: 100vh;
+  background: -webkit-linear-gradient(45deg, #76B354, #5089DB);
+  background: -o-linear-gradient(45deg, #76B354, #5089DB);
   background: linear-gradient(45deg, #76B354, #5089DB);
   background-size: 200%; /* zoom in the background so that it allows space for it to be scrolled */
-  animation: scroll-background 4s ease-in-out infinite;
+  -webkit-animation: scroll-background 4s ease-in-out infinite;
+          animation: scroll-background 4s ease-in-out infinite;
 }
 
 .terminal {
   position: absolute;
   left: 50%;
   top: 50%;
-  transform: translate(-50%, -50%);
+  -webkit-transform: translate(-50%, -50%);
+      -ms-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
   width: var(--terminal-width);
   min-width: var(--terminal-min-width);
   height: var(--terminal-height);
   min-height: var(--terminal-min-width);
   background-color: #0a0e14;
   border-radius: 5px;
-  box-shadow: 5px 7px 10px;
+  -webkit-box-shadow: 5px 7px 10px;
+          box-shadow: 5px 7px 10px;
 }
 
 .terminal-header-title-initial,
@@ -40,16 +46,20 @@ body {
   position: absolute;
   top: 15px;
   left: 50%;
-  transform: translateX(-50%);
+  -webkit-transform: translateX(-50%);
+      -ms-transform: translateX(-50%);
+          transform: translateX(-50%);
 }
 
 .terminal-header-title-initial {
-  animation: hide 0s linear var(--terminal-execute-script) forwards;
+  -webkit-animation: hide 0s linear var(--terminal-execute-script) forwards;
+          animation: hide 0s linear var(--terminal-execute-script) forwards;
 }
 
 .terminal-header-title-final {
   visibility: hidden;
-  animation: show 0s linear var(--terminal-execute-script) forwards;
+  -webkit-animation: show 0s linear var(--terminal-execute-script) forwards;
+          animation: show 0s linear var(--terminal-execute-script) forwards;
 }
 
 .terminal-header-actions {
@@ -68,8 +78,13 @@ body {
   text-align: center;
   color: transparent;
   font-family: Arial;
-  user-select: none;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
   font-size: var(--terminal-font-size);
+  -webkit-transition: color 0.2s ease-in-out;
+  -o-transition: color 0.2s ease-in-out;
   transition: color 0.2s ease-in-out;
 }
 
@@ -99,7 +114,8 @@ body {
 
 .terminal-body-commands,
 .terminal-body-cursor {
-  animation: hide 0s linear var(--terminal-execute-script) forwards;
+  -webkit-animation: hide 0s linear var(--terminal-execute-script) forwards;
+          animation: hide 0s linear var(--terminal-execute-script) forwards;
 }
 
 span {
@@ -107,6 +123,12 @@ span {
   color: white;
   font-family: monospace;
   font-size: var(--terminal-font-size);
+}
+
+.terminal-body-commands::-moz-selection,
+.terminal-body-commands>span::-moz-selection,
+.terminal-body-script::-moz-selection {
+  background-color: var(--terminal-selection-color);
 }
 
 .terminal-body-commands::selection,
@@ -121,7 +143,8 @@ span {
   width: var(--terminal-cursor-width);
   height: 20px;
   background-color: white;
-  animation: blink 1s step-end infinite;
+  -webkit-animation: blink 1s step-end infinite;
+          animation: blink 1s step-end infinite;
 }
 
 .terminal-command {
@@ -131,17 +154,26 @@ span {
   overflow: hidden;
   white-space: nowrap; /* prevent text from kicking to next line when width is too small*/
   width: 0px;
-  animation: type var(--terminal-type-speed) steps(13) var(--terminal-type-delay) normal both; /* # of steps === # of total letters */
+  -webkit-animation: type var(--terminal-type-speed) steps(13) var(--terminal-type-delay) normal both;
+          animation: type var(--terminal-type-speed) steps(13) var(--terminal-type-delay) normal both; /* # of steps === # of total letters */
 }
 
 .terminal-body-script {
   width: 100%;
   height: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  flex-direction: column; /* stack the items */
-  justify-content: center; /* center it along the flex direction */
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column; /* stack the items */
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center; /* center it along the flex direction */
   visibility: hidden;
-  animation: show 0s linear var(--terminal-execute-script) forwards; /* delay the animation until finish typing */
+  -webkit-animation: show 0s linear var(--terminal-execute-script) forwards;
+          animation: show 0s linear var(--terminal-execute-script) forwards; /* delay the animation until finish typing */
 }
 
 h1 {
@@ -150,12 +182,25 @@ h1 {
   margin: 10px 0;
   color: #DE2E43;
   text-align: center;
-  animation: fade-rgb 4s step-end infinite;
+  -webkit-animation: fade-rgb 4s step-end infinite;
+          animation: fade-rgb 4s step-end infinite;
+  -webkit-transition: -webkit-transform 0.15s ease-in-out;
+  transition: -webkit-transform 0.15s ease-in-out;
+  -o-transition: transform 0.15s ease-in-out;
   transition: transform 0.15s ease-in-out;
+  transition: transform 0.15s ease-in-out, -webkit-transform 0.15s ease-in-out;
 }
 
 h1:hover {
-  transform: scale(1.1);
+  -webkit-transform: scale(1.1);
+      -ms-transform: scale(1.1);
+          transform: scale(1.1);
+}
+
+@-webkit-keyframes type {
+  to {
+    width: 115px; /* final width of the span after all letters are typed out */
+  }
 }
 
 @keyframes type {
@@ -164,9 +209,22 @@ h1:hover {
   }
 }
 
+@-webkit-keyframes show {
+  to {
+    visibility: visible;
+  }
+}
+
 @keyframes show {
   to {
     visibility: visible;
+  }
+}
+
+@-webkit-keyframes hide {
+  to {
+    position: absolute; /* absolute positioning so that element doesnt take space anymore */
+    visibility: hidden;
   }
 }
 
@@ -177,9 +235,29 @@ h1:hover {
   }
 }
 
+@-webkit-keyframes blink {
+  50% {
+    background-color: black;
+  }
+}
+
 @keyframes blink {
   50% {
     background-color: black;
+  }
+}
+
+@-webkit-keyframes fade-rgb {
+  25% {
+    color: #76B354;
+  }
+  
+  50% {
+    color: #FFAC32; 
+  }
+  
+  75% {
+    color: #5089DB;
   }
 }
 
@@ -194,6 +272,20 @@ h1:hover {
   
   75% {
     color: #5089DB;
+  }
+}
+
+@-webkit-keyframes scroll-background {
+  0% {
+    background-position: 0%;
+  }
+
+  50% {
+    background-position: 100%; /* move it all the way over */
+  }
+  
+  100% {
+    background-position: 0%; /* then go backward */
   }
 }
 
